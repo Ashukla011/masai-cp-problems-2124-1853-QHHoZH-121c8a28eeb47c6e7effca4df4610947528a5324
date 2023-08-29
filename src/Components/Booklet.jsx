@@ -9,19 +9,29 @@ const Booklet = ({onclick}) => {
     let allData=await res.json()
     setData(allData)
  }
-  
+  function StartExam(){
+    getdata()
+    setStart(false)
+  }
   return (
     <div data-testid="Booklet">
       {/* create a div with className="welcome-div" here*/}
       <div className="welcome-div">
         <h1 style={!start? {display:"none"}:{display:"block"}}>To begin the exam, click on the 'Start Exam' button below</h1>
-        <button onClick={()=>getdata}>{start?"Start Exam":"End Exam"}</button>
+        <button onClick={StartExam}>{start?"Start Exam":"End Exam"}</button>
       </div>
 
       <div className="questions-container">
         {/* Append score and question card components here */}
         <h3>Score: {score}</h3>
-        <QuestionCard/>
+          {data.map((el)=>{
+             <QuestionCard key={el.id}
+               
+              question={el.question}
+              options={el.options}
+              
+             />
+          })}
       </div>
     </div>
   );
